@@ -33,23 +33,22 @@ pipeline {
             steps {
                 sh '. .venv/bin/activate && allure generate allure-results --clean -o allure-results'
             }
-        }
-        stage('Archive Results') {
-            steps {
-                archiveArtifacts artifacts: 'allure-results/**', allowEmptyArchive: true
-                archiveArtifacts artifacts: 'screenshots/**', allowEmptyArchive: true
-                archiveArtifacts artifacts: 'videos/**', allowEmptyArchive: true
-                archiveArtifacts artifacts: 'logs/**', allowEmptyArchive: true
-            }
-        }
-        stage('Publish Allure Report') {
-            steps {
-                allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
-            }
+            // This stage will still be skipped if previous stage fails,
+            // so we move archiving and publishing to post block below.
         }
     }
     post {
         always {
+            // Archive artifacts even if the build fails
+            archiveArtifacts artifacts: 'allure-results/**', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'screenshots/**', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'videos/**', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'logs/**', allowEmptyArchive: true
+
+            // Publish Allure report (if plugin is installed)
+            allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
+
+            // Clean workspace
             cleanWs()
         }
     }
