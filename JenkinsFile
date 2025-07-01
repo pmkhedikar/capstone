@@ -33,8 +33,6 @@ pipeline {
             steps {
                 sh '. .venv/bin/activate && allure generate allure-results --clean -o allure-results'
             }
-            // This stage will still be skipped if previous stage fails,
-            // so we move archiving and publishing to post block below.
         }
     }
     post {
