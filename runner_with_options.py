@@ -3,7 +3,7 @@ from behave.__main__ import main
 if __name__ == "__main__":
     browser = "chromium"
     headless = "false"
-    tags = "@login"
+    tags = "@addTOCart"
     feature_file_path = "features/"
 
     main([

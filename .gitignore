@@ -1,0 +1,10 @@
+# Python cache
+*.pyc
+.venv/
+allure-results/
+screenshots/
+videos/
+*.log
+*.bak
+*.tmp
+

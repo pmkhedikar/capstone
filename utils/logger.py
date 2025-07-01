@@ -1,10 +1,26 @@
-import unittest
+import logging
 
+class GenericLogger:
+    def __init__(self, name="app", level=logging.INFO):
+        self.logger = logging.getLogger(name)
+        self.logger.setLevel(level)
+        formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
 
-class MyTestCase(unittest.TestCase):
-    def test_something(self):
-        self.assertEqual(True, False)  # add assertion here
+        # Avoid adding multiple handlers if logger is reused
+        if not self.logger.handlers:
+            # Console handler
+            ch = logging.StreamHandler()
+            ch.setFormatter(formatter)
+            self.logger.addHandler(ch)
 
+    def info(self, msg):
+        self.logger.info(msg)
 
-if __name__ == '__main__':
-    unittest.main()
+    def warning(self, msg):
+        self.logger.warning(msg)
+
+    def error(self, msg):
+        self.logger.error(msg)
+
+    def debug(self, msg):
+        self.logger.debug(msg)
