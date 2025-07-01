@@ -13,6 +13,7 @@ def before_scenario(context, scenario):
     context.page = context.browser.new_page()
 
 def after_scenario(context, scenario):
+
     if hasattr(context, 'page'):
         context.page.close()
 
