@@ -12,7 +12,7 @@ logger = GenericLogger().logger
 
 def before_all(context):
     # Clean up old artifacts
-    for repo in ['allure-results', 'screenshots', 'videos']:
+    for repo in ['logs', 'screenshots', 'videos']:
         if os.path.exists(repo):
             shutil.rmtree(repo)
     os.makedirs('screenshots', exist_ok=True)

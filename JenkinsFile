@@ -3,7 +3,7 @@ pipeline {
 
     parameters {
         choice(name: 'BROWSER', choices: ['chromium', 'firefox', 'webkit'], description: 'Choose browser')
-        string(name: 'TAGS', defaultValue: '@login', description: 'Behave tags to run')
+        string(name: 'TAGS', defaultValue: '@login,@addTOCart,@placeorder', description: 'Behave tags to run')
     }
 
     stages {
